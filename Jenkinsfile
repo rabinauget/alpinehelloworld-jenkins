@@ -1,9 +1,9 @@
 pipeline {
      environment {
-       ID_DOCKER = "${ID_DOCKER_PARAMS}"
+       ID_DOCKER = "${ID_DOCKERHUB_PARAMS}"
        IMAGE_NAME = "alpinehelloworld"
        IMAGE_TAG = "latest"
-//       PORT_EXPOSED = "80" à paraméter dans le job
+       PORT_EXPOSED = "80"
        STAGING = "${ID_DOCKER}-staging"
        PRODUCTION = "${ID_DOCKER}-production"
      }
@@ -35,7 +35,7 @@ pipeline {
            steps {
               script {
                 sh '''
-                    curl http://172.17.0.1:${PORT_EXPOSED} | grep -q "Hello world!"
+                    curl http://localhost:${PORT_EXPOSED} | grep -q "Hello world!"
                 '''
               }
            }
@@ -55,7 +55,7 @@ pipeline {
      stage ('Login and Push Image on docker hub') {
           agent any
         environment {
-           DOCKERHUB_PASSWORD  = credentials('dockerhub')
+           DOCKERHUB_PASSWORD  = credentials('toshiroskynet')
         }            
           steps {
              script {
