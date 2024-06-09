@@ -57,7 +57,7 @@ pipeline {
      stage ('Login and Push Image on docker hub') {
           agent any
         environment {
-           DOCKERHUB_PASSWORD  = credentials('dockerhub')
+           DOCKERHUB = credentials('dockerhub')
         }            
           steps {
              script {
