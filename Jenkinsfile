@@ -6,26 +6,10 @@ pipeline {
        PORT_EXPOSED = "80"
        STAGING = "${ID_DOCKER}-staging"
        PRODUCTION = "${ID_DOCKER}-production"
-       /*DOCKERHUB_USERNAME = "${ID_DOCKERHUB_PARAMS}"
-       DOCKERHUB_PASSWORD  = credentials('dockerhub')*/
      }
      agent none
-     /*stages {
-        stage ('Login and Push Image on docker hub') {
-          agent any
-          environment {
-            DOCKERHUB_PASSWORD  = credentials('dockerhub')
-          }            
-          steps {
-             script {
-               sh '''
-                   echo $DOCKERHUB_PASSWORD_PSW | docker login -u $ID_DOCKER --password-stdin
-                   docker push ${ID_DOCKER}/$IMAGE_NAME:$IMAGE_TAG
-               '''
-             }
-          }
-        }*/
-        stage('Build image') {
+     stages {
+         stage('Build image') {
              agent any
              steps {
                 script {
